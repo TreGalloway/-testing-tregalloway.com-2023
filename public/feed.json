@@ -1,0 +1,25 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "Next.js Tailwind Contentlayer Blog Starter",
+    "home_page_url": "https://nextjs-tailwind-contentlayer-blog-starter.vercel.app",
+    "feed_url": "https://nextjs-tailwind-contentlayer-blog-starter.vercel.app/feed.json",
+    "description": "Blog starter template with modern frontend technologies like Next.js, Tailwind CSS, Contentlayer, i18Next",
+    "icon": "https://nextjs-tailwind-contentlayer-blog-starter.vercel.app/logo.png",
+    "author": {
+        "name": "Tony Stark",
+        "url": "https://nextjs-tailwind-contentlayer-blog-starter.vercel.app"
+    },
+    "items": [
+        {
+            "id": "https://nextjs-tailwind-contentlayer-blog-starter.vercel.appundefined",
+            "url": "https://nextjs-tailwind-contentlayer-blog-starter.vercel.appundefined",
+            "title": "Lorem Ipsum",
+            "image": "https://nextjs-tailwind-contentlayer-blog-starter.vercel.app/og-image.png",
+            "date_modified": "2021-12-24T00:00:00.000Z",
+            "author": {
+                "name": "Tony Stark",
+                "url": "https://nextjs-tailwind-contentlayer-blog-starter.vercel.app"
+            }
+        }
+    ]
+}

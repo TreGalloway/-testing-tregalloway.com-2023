@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Next.js Tailwind Contentlayer Blog Starter</title>
+        <link>https://nextjs-tailwind-contentlayer-blog-starter.vercel.app</link>
+        <description>Blog starter template with modern frontend technologies like Next.js, Tailwind CSS, Contentlayer, i18Next</description>
+        <lastBuildDate>Sat, 18 Mar 2023 18:27:06 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <image>
+            <title>Next.js Tailwind Contentlayer Blog Starter</title>
+            <url>https://nextjs-tailwind-contentlayer-blog-starter.vercel.app/logo.png</url>
+            <link>https://nextjs-tailwind-contentlayer-blog-starter.vercel.app</link>
+        </image>
+        <copyright>Copyright © 2015 - 2023 Stark Industries</copyright>
+        <item>
+            <title><![CDATA[Lorem Ipsum]]></title>
+            <link>https://nextjs-tailwind-contentlayer-blog-starter.vercel.appundefined</link>
+            <guid>https://nextjs-tailwind-contentlayer-blog-starter.vercel.appundefined</guid>
+            <pubDate>Fri, 24 Dec 2021 00:00:00 GMT</pubDate>
+            <author>stark@example.com (Tony Stark)</author>
+            <enclosure url="https://nextjs-tailwind-contentlayer-blog-starter.vercel.app/og-image.png" length="0" type="image/png"/>
+        </item>
+    </channel>
+</rss>

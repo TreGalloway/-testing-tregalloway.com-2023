@@ -1,44 +1,77 @@
-import Head from 'next/head'
-import Link from 'next/link'
-import { compareDesc, format, parseISO } from 'date-fns'
-import { allPosts } from 'contentlayer/generated'
-import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal } from 'react'
-import { UrlObject } from 'url'
+import type { NextPage } from 'next';
+import { GetStaticProps } from 'next';
+import { ArticleJsonLd } from 'next-seo';
 
-export async function getStaticProps() {
-  const posts = allPosts.sort((a: { date: string | number | Date }, b: { date: string | number | Date }) => {
-    return compareDesc(new Date(a.date), new Date(b.date))
-  })
-  return { props: { posts } }
-}
+import {
+  getCommandPalettePosts,
+  PostForCommandPalette,
+} from '@/components/cmd/cmd-post';
+import { useCommandPalettePostActions } from '@/components/cmd/cmd-post-actions';
+// import LayoutPerPage from '@/components/LayoutPerPage';
+import PostList, { PostForPostList } from '@/components/posts/post-list';
+import { siteConfigs } from '@/configs/site-config';
+import { allPostsNewToOld } from '@/lib/contentlayer-adapter';
+import generateRSS from '@/lib/rss';
 
-function PostCard(post: { date: string | undefined; url: string | UrlObject; title: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined }) {
+type PostForIndexPage = PostForPostList;
+
+type Props = {
+  posts: PostForIndexPage[];
+  commandPalettePosts: PostForCommandPalette[];
+};
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  const commandPalettePosts = getCommandPalettePosts();
+  const posts = allPostsNewToOld.map((post) => ({
+    slug: post.slug,
+    date: post.date,
+    title: post.title,
+    description: post.description,
+    path: post.path,
+  })) as PostForIndexPage[];
+
+  generateRSS();
+
+  return {
+    props: {
+      posts,
+      commandPalettePosts,
+    },
+  };
+};
+
+const Home: NextPage<Props> = ({ posts, commandPalettePosts }) => {
+
+  useCommandPalettePostActions(commandPalettePosts);
+
   return (
-    <div className="mb-6">
-      <time dateTime={post.date} className="block text-sm text-slate-600">
-        {format(parseISO(post.date), 'LLLL d, yyyy')}
-      </time>
-      <h2 className="text-lg">
-        <Link href={post.url}>
-          <a className="text-blue-700 hover:text-blue-900">{post.title}</a>
-        </Link>
-      </h2>
-    </div>
-  )
-}
+<> <ArticleJsonLd
+        type="Blog"
+        url={siteConfigs.fqdn}
+        title={siteConfigs.title}
+        images={[siteConfigs.bannerUrl]}
+        datePublished={siteConfigs.datePublished}
+        authorName={siteConfigs.author}
+        description={siteConfigs.description}
+      />
 
-export default function Home({ posts }) {
-  return (
-    <div className="mx-auto max-w-2xl py-16 text-center">
-      <Head>
-        <title>Contentlayer Blog Example</title>
-      </Head>
+      <div className="my-12 space-y-2 prose transition-colors dark:prose-dark md:prose-lg md:space-y-5">
+        <h1 className="text-center sm:text-left">{('intro-title')}</h1>
+        <p>{('intro-1')}</p>
+        <p>{('intro-2')}</p>
+        <p>{('intro-3')}</p>
+      </div>
 
-      <h1 className="mb-8 text-3xl font-bold">Contentlayer Blog Example</h1>
+      <div className="my-4 transition-colors divide-y divide-gray-200 dark:divide-gray-700">
+        <div className="my-8 prose prose-lg dark:prose-dark">
+          <h2>{('latest-posts')}</h2>
+        </div>
 
-      {posts.map((post: any, idx: any) => (
-        <PostCard key={idx} {...post} />
-      ))}
-    </div>
-  )
-}
+        <PostList posts={posts} />
+      </div></>
+     
+
+  );
+};
+
+export default Home;
